@@ -8,9 +8,11 @@ import {
   CardActions,
   ButtonGroup,
   IconButton,
+  Button,
 } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircle from "@mui/icons-material/RemoveCircle";
+import ClearIcon from "@mui/icons-material/Clear";
 export function BottomRowComponent({
   displayName,
   count,
@@ -35,7 +37,7 @@ export function BottomRowComponent({
     }
   }
   return (
-    <Grid item textAlign="center" flexGrow={1}>
+    <Grid item textAlign="center" xs={4}>
       <Card
         sx={{
           display: "flex",
@@ -74,6 +76,13 @@ export function BottomRowComponent({
               <RemoveCircle />
             </IconButton>
           </ButtonGroup>
+          <IconButton
+            sx={{ color: "teal" }}
+            disabled={count === 0}
+            onClick={() => setCount(0)}
+          >
+            <ClearIcon />
+          </IconButton>
         </CardActions>
       </Card>
     </Grid>
