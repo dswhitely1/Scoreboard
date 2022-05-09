@@ -29,6 +29,7 @@ export function AddBatter() {
             name="jerseyNumber"
             value={jerseyNumber}
             type="number"
+            required
             onChange={(e) => setJerseyNumber(e.target.value)}
           />
         </CardContent>
