@@ -32,11 +32,11 @@ export function AddBatter() {
             onChange={(e) => setJerseyNumber(e.target.value)}
           />
         </CardContent>
-        <CardActions>
+        {/* <CardActions>
           <Button type="submit" variant="text" onClick={addBatter}>
             Add Batter
           </Button>
-        </CardActions>
+        </CardActions> */}
       </form>
     </Card>
   );
