@@ -41,6 +41,18 @@ export function ScoreBoard() {
     }
   }, [inning, dispatch]);
 
+  useEffect(() => {
+    if (balls === 4) {
+      dispatch(
+        basesActions.advanceRunner({
+          playerNumber: currentBatter as string,
+          newBase: basesActions.Bases.First,
+        })
+      );
+      dispatch(batterActions.batterAtBase());
+    }
+  }, [balls, dispatch]);
+
   return (
     <>
       <CssBaseline />

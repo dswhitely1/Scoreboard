@@ -20,15 +20,8 @@ export const batterSlice = createSlice({
   initialState,
   reducers: {
     ball: (state) => {
-      if (state.balls === 3) {
-        // Walk Batter
-        state.balls = 0;
-        state.strikes = 0;
-        state.pitch = 0;
-      } else {
-        state.balls += 1;
-        state.pitch += 1;
-      }
+      state.balls += 1;
+      state.pitch += 1;
     },
     strike: (state) => {
       state.strikes += 1;
