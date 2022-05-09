@@ -1,38 +1,19 @@
-import { Grid } from "@mui/material";
-import { BottomRowComponent } from "../components/BottomRowComponent";
+import { Info } from "../components/Info";
+import React from "react";
+import { Box } from "@mui/material";
 
 interface InfoRowsProps {
   balls: number;
   strikes: number;
   outs: number;
-  setBalls: React.Dispatch<React.SetStateAction<number>>;
-  setStrikes: React.Dispatch<React.SetStateAction<number>>;
-  setOuts: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export function InfoRow({
-  balls,
-  strikes,
-  outs,
-  setBalls,
-  setStrikes,
-  setOuts,
-}: InfoRowsProps) {
+export function InfoRow({ balls, strikes, outs }: InfoRowsProps) {
   return (
-    <Grid container justifyContent="space-between" alignItems="center">
-      <BottomRowComponent
-        displayName="Balls"
-        count={balls}
-        setCount={setBalls}
-      />
-
-      <BottomRowComponent
-        displayName="Strikes"
-        count={strikes}
-        setCount={setStrikes}
-      />
-
-      <BottomRowComponent displayName="Outs" count={outs} setCount={setOuts} />
-    </Grid>
+    <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+      <Info displayName="Balls" count={balls} />
+      <Info displayName="Strikes" count={strikes} />
+      <Info displayName="Outs" count={outs} />
+    </Box>
   );
 }

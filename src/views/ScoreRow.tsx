@@ -1,5 +1,6 @@
 import { Grid } from "@mui/material";
 import { TopRowComponent } from "../components/TopRowComponent";
+import React from "react";
 
 interface ScoreRowProps {
   home: number;

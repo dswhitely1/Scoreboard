@@ -1,14 +1,15 @@
 import { AddCircle, RemoveCircle } from "@mui/icons-material";
 import {
-  Grid,
-  Card,
-  CardHeader,
-  CardContent,
-  Avatar,
-  CardActions,
   ButtonGroup,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Grid,
   IconButton,
+  Typography,
 } from "@mui/material";
+import React from "react";
 
 export function TopRowComponent({
   displayName,
@@ -20,10 +21,12 @@ export function TopRowComponent({
   setCount: React.Dispatch<React.SetStateAction<number>>;
 }) {
   const minimumNumber = displayName === "Inning" ? 1 : 0;
+
   function handleClick(value: number) {
     if (count + value < minimumNumber) return;
     setCount(() => count + value);
   }
+
   return (
     <Grid item textAlign="center" flexGrow={1}>
       <Card
@@ -31,7 +34,7 @@ export function TopRowComponent({
       >
         <CardHeader title={displayName} />
         <CardContent>
-          <Avatar>{count}</Avatar>
+          <Typography variant="h5">{count}</Typography>
         </CardContent>
         <CardActions>
           <ButtonGroup variant="text" size="large">

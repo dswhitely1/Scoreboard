@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { ScoreBoard } from "./layouts/ScoreBoard";
 import reportWebVitals from "./reportWebVitals";
+import { store } from "./store/store";
+import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -9,7 +11,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <ScoreBoard />
+    <Provider store={store}>
+      <ScoreBoard />
+    </Provider>
   </React.StrictMode>
 );
 

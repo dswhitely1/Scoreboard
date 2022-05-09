@@ -1,15 +1,45 @@
-import { CssBaseline, Box, Typography, Divider } from "@mui/material";
-import { useState } from "react";
+import { CssBaseline, Divider, Typography } from "@mui/material";
 import { InfoRow } from "../views/InfoRow";
-import { ScoreRow } from "../views/ScoreRow";
+import { CurrentScore } from "../views/CurrentScore";
+import { Bases } from "../views/Bases";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { AtBat } from "../views/AtBat";
+import * as batterActions from "../store/batter";
+import * as inningActions from "../store/inning";
+import * as scoreActions from "../store/score";
+import * as basesActions from "../store/bases";
+import { useEffect } from "react";
 
 export function ScoreBoard() {
-  const [balls, setBalls] = useState<number>(() => 0);
-  const [strikes, setStrikes] = useState<number>(() => 0);
-  const [outs, setOuts] = useState<number>(() => 0);
-  const [home, setHome] = useState<number>(() => 0);
-  const [guest, setGuest] = useState<number>(() => 0);
-  const [inning, setInning] = useState<number>(() => 1);
+  const dispatch = useAppDispatch();
+  const { inning, top } = useAppSelector((state) => state.inning);
+  const { home, guest } = useAppSelector((state) => state.score);
+  const { balls, strikes, outs, currentBatter } = useAppSelector(
+    (state) => state.batter
+  );
+
+  useEffect(() => {
+    if (outs === 3) {
+      dispatch(batterActions.endInning());
+      dispatch(inningActions.switchSides());
+      dispatch(basesActions.switchSides());
+    }
+  }, [outs, dispatch]);
+
+  useEffect(() => {
+    if (strikes === 3) {
+      if (currentBatter) {
+        dispatch(basesActions.batterOut(currentBatter));
+      }
+      dispatch(batterActions.out());
+    }
+  }, [strikes, dispatch]);
+
+  useEffect(() => {
+    if (inning !== 1) {
+      dispatch(scoreActions.newInning());
+    }
+  }, [inning, dispatch]);
 
   return (
     <>
@@ -17,29 +47,16 @@ export function ScoreBoard() {
       <Typography variant="h2" component="h1" textAlign="center">
         Score Board
       </Typography>
-      <Box>
-        <ScoreRow
-          home={home}
-          guest={guest}
-          inning={inning}
-          setHome={setHome}
-          setGuest={setGuest}
-          setInning={setInning}
-        />
-        <Divider
-          sx={{
-            margin: 8,
-          }}
-        />
-        <InfoRow
-          balls={balls}
-          strikes={strikes}
-          outs={outs}
-          setBalls={setBalls}
-          setOuts={setOuts}
-          setStrikes={setStrikes}
-        />
-      </Box>
+      <CurrentScore
+        home={home.reduce((acc, cur) => (acc += cur), 0)}
+        guest={guest.reduce((acc, cur) => (acc += cur), 0)}
+        inning={inning}
+        top={top}
+      />
+      <InfoRow balls={balls} strikes={strikes} outs={outs} />
+      <Divider />
+      <AtBat />
+      <Bases />
     </>
   );
 }
